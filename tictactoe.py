@@ -58,6 +58,10 @@ def result(board, move): # move (i,j)
     returnBoard = []
     currentPlayer = player(board)
     returnBoard = copy.deepcopy(board)
+
+    # check for possible illegal move
+    if returnBoard[move[0]][move[1]] != EMPTY:
+         raise Exception("Illegal move passed, cannot continue!")
     returnBoard[move[0]][move[1]] = currentPlayer
     return returnBoard
     # Returns the board that results from making move (i, j) on the board.
@@ -120,6 +124,8 @@ def minimax(board):
   
     solution = []
 
+    if terminal(board):
+        return None
     # Keep looping until solution found
     while True:
         testBoard = set()
