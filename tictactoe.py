@@ -134,6 +134,11 @@ def minimax(board):
 
         for action in actions(testBoard):
             testResult = result(testBoard, action)
+            
+            # check for immediate win
+            if(terminal(testResult)):
+                return action
+                          
             total = calculatePath(testResult, action)
             solution.append([action, total])
             print(solution)
@@ -151,6 +156,7 @@ def calculatePath(board, action):
     currentPlayer = player(board)
     testBoard = set()
     testBoard = copy.deepcopy(board)
+        
     for action in actions(testBoard):
         testResult = result(testBoard, action)
         if(terminal(testResult)):
@@ -158,7 +164,7 @@ def calculatePath(board, action):
                 pathCost = pathCost + 1
             else:
                 pathCost = pathCost - 1
-            return pathCost
+            return pathCost        
         else:
             pathCost = pathCost + calculatePath(testResult, action) 
     return pathCost
